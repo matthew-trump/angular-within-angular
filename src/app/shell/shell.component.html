@@ -1,0 +1,51 @@
+<div class="shell">
+
+  <div class="left">
+    <div class="wrapper">
+      <iframe id="iframe" [src]="url | safe" (load)="iframeLoaded()" [height]="iframe.height"
+        [width]="iframe.width"></iframe>
+    </div>
+  </div>
+
+  <div class="right">
+
+    <div class="description">
+      This is a demo of how to embed an app, including an Angular, inside an Angular app using Angular
+      app using an iframe. The controls here allow communication between the shell (this app) and the inner app.
+
+      <h4>url: {{url}}</h4>
+      <div class="controls">
+        <button mat-raised-button (click)="invokeInnerApp()" [disabled]="invoked">invoke</button>
+        <button mat-raised-button (click)="quitInnerApp()" [disabled]="!invoked">quit</button>
+
+        <div class="routeSelect" *ngIf="invoked">
+          <mat-form-field>
+            <mat-label>Active Child Route</mat-label>
+            <mat-select [(value)]="activeChildRoute" (selectionChange)="updateChildRoute()">
+              <mat-option value="welcome">welcome</mat-option>
+              <mat-option value="message">message</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+      </div>
+    </div>
+    <div class="output" *ngIf="invoked">
+
+      <div class="messages">
+        <h4>Messages</h4>
+        <ul *ngIf="messages">
+          <li *ngFor="let message of messages">{{message}}</li>
+        </ul>
+      </div>
+
+      <div class="callbacks">
+        <h4>Callbacks</h4>
+        <ul *ngIf="callbacks">
+          <li *ngFor="let callback of callbacks">{{callback}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
